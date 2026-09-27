@@ -41,7 +41,7 @@ Design and train an **encoder-decoder** model capable of generating an English s
 ## Architecture
 
 <p align="center">
-  <img src="assets/architecture.png" alt="Model architecture" width="100%">
+  <img src="architecture.png" alt="Model architecture" width="100%">
 </p>
 
 ```
