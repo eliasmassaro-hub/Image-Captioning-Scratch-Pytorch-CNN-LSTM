@@ -34,9 +34,15 @@ Design and train an **encoder-decoder** model capable of generating an English s
 
 **Main constraint**: the entire model is built **from scratch** — no transfer learning, no pretrained weights (no ResNet, no ImageNet features). Both the CNN and the LSTM are trained from zero.
 
+**Project constraint**: the use of **attention mechanisms** was not allowed in this project. The decoder therefore only relies on a single global 512-d image vector (used to initialize the LSTM), with no attention over spatial image features.
+
 ---
 
 ## Architecture
+
+<p align="center">
+  <img src="assets/architecture.png" alt="Model architecture" width="100%">
+</p>
 
 ```
 ┌─────────────┐     ┌───────────────────┐     ┌──────────┐     ┌──────────────────┐     ┌──────────┐
