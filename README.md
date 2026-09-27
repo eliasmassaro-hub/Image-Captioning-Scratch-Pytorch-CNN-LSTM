@@ -41,8 +41,8 @@ Design and train an **encoder-decoder** model capable of generating an English s
 ## Architecture
 
 <p align="center">
-  <a href="assets/architecture.svg">
-    <img src="assets/architecture.svg" alt="Model architecture" width="100%">
+  <a href="architecture.svg">
+    <img src="architecture.svg" alt="Model architecture" width="100%">
   </a>
   <br>
   <sub>Click the image to open it in full size — vector SVG, zoom in without any loss of quality.</sub>
