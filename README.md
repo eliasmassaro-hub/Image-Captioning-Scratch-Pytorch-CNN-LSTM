@@ -40,67 +40,9 @@ Design and train an **encoder-decoder** model capable of generating an English s
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    IMG["<b>Image</b><br/>224 × 224 × 3<br/>RGB normalized"]
-
-    subgraph ENC["CNN Encoder — from scratch (VGG-style)"]
-        direction TB
-        B1["<b>Block 1</b> · 3 → 32<br/>224 → 112"]
-        B2["<b>Block 2</b> · 32 → 64<br/>112 → 56"]
-        B3["<b>Block 3</b> · 64 → 128<br/>56 → 28"]
-        B4["<b>Block 4</b> · 128 → 256<br/>28 → 14"]
-        B5["<b>Block 5</b> · 256 → 512<br/>14 → 7"]
-        B6["<b>Block 6</b> · 512 → 512<br/>7 → 3"]
-        B1 --> B2 --> B3 --> B4 --> B5 --> B6
-    end
-
-    subgraph FEAT["Image feature"]
-        direction TB
-        HEAD["AdaptiveAvgPool(1,1)<br/>Dropout(0.3)<br/>Linear(512, 512)<br/>BatchNorm1d"]
-        V(["<b>v</b> — 512-d vector"])
-        HEAD --> V
-    end
-
-    subgraph DEC["LSTM Decoder"]
-        direction TB
-        EMB["Embedding<br/>vocab_size → 256"]
-        LSTM["LSTM · 2 layers<br/>hidden = 512<br/>dropout = 0.35"]
-        FC["Linear 512 → vocab_size<br/>→ softmax"]
-        INIT["h₀ = W_h · v<br/>c₀ = W_c · v"]
-        EMB --> LSTM --> FC
-        FC -. "next word" .-> EMB
-        INIT --> LSTM
-    end
-
-    CAP["<b>Caption</b><br/><i>“a dog running in the park”</i><br/>Greedy · Beam Search<br/>(k = 3, 5)"]
-
-    IMG -- "224×224×3" --> ENC
-    ENC -- "3×3×512" --> FEAT
-    FEAT -- "init h₀, c₀" --> DEC
-    DEC -- "word by word" --> CAP
-
-    linkStyle default stroke:#64748b,stroke-width:1.5px
-    classDef img fill:#dbeafe,stroke:#3b82f6,color:#1e293b
-    classDef enc fill:#cffafe,stroke:#0891b2,color:#0f172a
-    classDef feat fill:#ccfbf1,stroke:#0d9488,color:#0f172a
-    classDef dec fill:#ede9fe,stroke:#7c3aed,color:#1e1b4b
-    classDef cap fill:#ffedd5,stroke:#ea580c,color:#431407
-    class IMG img
-    class B1,B2,B3,B4,B5,B6 enc
-    class HEAD,V feat
-    class INIT,EMB,LSTM,FC dec
-    class CAP cap
-    style ENC fill:#ecfeff,stroke:#0891b2,color:#0e7490
-    style FEAT fill:#f0fdfa,stroke:#0d9488,color:#0f766e
-    style DEC fill:#f5f3ff,stroke:#7c3aed,color:#6d28d9
-```
-
-<details>
-<summary><b>View the original project poster</b></summary>
-<br>
-<img src="assets/architecture.svg" alt="Project poster" width="100%">
-</details>
+<p align="center">
+  <img src="assets/architecture.png" alt="Model architecture" width="100%">
+</p>
 
 ```
 ┌─────────────┐     ┌───────────────────┐     ┌──────────┐     ┌──────────────────┐     ┌──────────┐
